@@ -13,10 +13,13 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-PROJECT_NAME="<PROJECT_NAME>"
+
+set -x
+
+PROJECT_NAME="voice-builder-evaluation"
 PROJECT_NAME_LOWERCASE="${PROJECT_NAME,,}"
-PROJECT_ID="<PROJECT_ID>"
-GCP_SERVICE_ACCOUNT_EMAIL="<GCP_SERVICE_ACCOUNT_EMAIL>"
+PROJECT_ID="voice-builder-evaluation"
+GCP_SERVICE_ACCOUNT_EMAIL="voicebuilder-48@voice-builder-evaluation.iam.gserviceaccount.com"
 DATA_EXPORTER_SERVICE_ACCOUNT="<DATA_EXPORTER_SERVICE_ACCOUNT>"
 
 CONTAINER_REGISTRY="gcr.io/${PROJECT_ID}"
