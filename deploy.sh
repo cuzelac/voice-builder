@@ -13,7 +13,8 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-set -euf -o pipefail
+set -eu -o pipefail
+shopt -s failglob
 
 PROJECT_NAME="voice-builder-evaluation"
 PROJECT_NAME_LOWERCASE="${PROJECT_NAME,,}"
