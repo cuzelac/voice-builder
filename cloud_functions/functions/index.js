@@ -30,9 +30,7 @@ const { JOB_BUCKET } = require('./config').GCS;
  * it will be called after the status of metadata file is changed.
  */
 exports.onJobBucketChange =
-  functions.storage.bucket(JOB_BUCKET).object().onChange((event) => {
-    const object = event.data;
-
+  functions.storage.bucket(JOB_BUCKET).object().onFinalize((object, context) => {
     const filePath = object.name;
     const {
       // A name of resource state
