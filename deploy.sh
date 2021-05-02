@@ -13,6 +13,8 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+set -euf -o pipefail
+
 PROJECT_NAME="voice-builder-evaluation"
 PROJECT_NAME_LOWERCASE="${PROJECT_NAME,,}"
 PROJECT_ID="voice-builder-evaluation"
