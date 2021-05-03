@@ -32,7 +32,7 @@ const { JOB_BUCKET } = require('./config').GCS;
 exports.onJobBucketChange =
   functions.storage.bucket(JOB_BUCKET).object().onFinalize(async (object) => {
     const filePath = object.name;
-    const metageneration = object.metageneration
+    const metageneration = object.metageneration;
 
     const splitFilenames = filePath.split('/');
     const jobId = splitFilenames[0];
