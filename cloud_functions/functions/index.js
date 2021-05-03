@@ -31,8 +31,6 @@ const { JOB_BUCKET } = require('./config').GCS;
  */
 exports.onJobBucketChange =
   functions.storage.bucket(JOB_BUCKET).object().onFinalize(async (object) => {
-    console.debug(object)
-
     const filePath = object.name;
     const metageneration = object.metageneration
 
