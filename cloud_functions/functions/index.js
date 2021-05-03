@@ -29,22 +29,19 @@ const { JOB_BUCKET } = require('./config').GCS;
  * If there is a callback function associated with the job status,
  * it will be called after the status of metadata file is changed.
  */
-exports.onJobBucketChange =
-  functions.storage.bucket(JOB_BUCKET).object().onFinalize((object, context) => {
+exports.onJobBucketFinalize =
+  functions.storage.bucket(JOB_BUCKET).object().onFinalize(async (object) => {
+    console.debug(object)
+
     const filePath = object.name;
-    const {
-      // A name of resource state
-      // whose value is 'exists' or 'not_exists' (for file/folder deletions).
-      resourceState,
-      // A number represents the generation of metadata file. Its value is 1 for a new objects.
-      metageneration,
-    } = object;
+    const metageneration = object.metageneration
 
     const splitFilenames = filePath.split('/');
     const jobId = splitFilenames[0];
     const basename = splitFilenames[1];
+
     // Check if current operation is adding a new file to a job folder
-    if (resourceState === 'exists' && Number(metageneration) === 1 && splitFilenames.length === 2) {
+    if (Number(metageneration) === 1 && splitFilenames.length === 2) {
       const status = jobStatus[basename];
       if (status) {
         const bucket = gcs.bucket(JOB_BUCKET);
@@ -60,8 +57,7 @@ exports.onJobBucketChange =
           });
       }
     }
-    console.warn(`Path: ${filePath}, State: ${resourceState}, \
-      Metageneration: ${metageneration} ${splitFilenames.length} \
+    console.warn(`Path: ${filePath}, Metageneration: ${metageneration} ${splitFilenames.length} \
       An unrelated file change. Exit...`);
     return Promise.resolve();
   });
