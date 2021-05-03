@@ -31,11 +31,13 @@ google.auth.getApplicationDefault((err, authClient, _projectId) => {
     // eslint-disable-next-line no-param-reassign
     authClient = authClient.createScoped(GCP_API_SCOPE);
   }
-  global.genomics = google.genomics({
-    version: 'v1alpha2',
+  global.lifesciences = google.lifesciences({
+    version: 'v2beta',
     auth: authClient,
   });
 
+  global.projectId = _projectId;
+  global.region = 'us-central1';
   global.authClient = authClient;
 });
 
@@ -43,8 +45,10 @@ google.auth.getApplicationDefault((err, authClient, _projectId) => {
  * Creates a promise for genomics.pipelines.create method.
  */
 const createPipeline = (createRequest) => new Promise((resolve, reject) => {
+  // TODO: pickup migrating to lifesciences here
   global.genomics.pipelines.create({ resource: createRequest }, (createErr, createRes) => {
     if (createErr) {
+      console.error(JSON.stringify(createErr, null, 2));
       return reject(createErr);
     }
     return resolve(createRes);
