@@ -19,7 +19,7 @@ const { JOB_BUCKET } = require('./config').GCS;
 
 const GCP_API_SCOPE = ['https://www.googleapis.com/auth/cloud-platform'];
 
-const compute = google.compute('beta');
+const compute = google.compute('v1');
 
 // Instantiate global variable;
 const global = {};
