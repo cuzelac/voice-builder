@@ -29,7 +29,7 @@ const { JOB_BUCKET } = require('./config').GCS;
  * If there is a callback function associated with the job status,
  * it will be called after the status of metadata file is changed.
  */
-exports.onJobBucketFinalize =
+exports.onJobBucketChange =
   functions.storage.bucket(JOB_BUCKET).object().onFinalize(async (object) => {
     console.debug(object)
 
